@@ -32,14 +32,11 @@ module.exports = function(app) {
   router.get('/stories', showTestimonials);
   router.get('/shop', showShop);
   router.get('/all-stories', showAllTestimonials);
-  router.get('/terms', terms);
-  router.get('/privacy', privacy);
   router.get('/how-nonprofit-projects-work', howNonprofitProjectsWork);
   router.get(
       '/software-resources-for-nonprofits',
       softwareResourcesForNonprofits
   );
-  router.get('/code-of-conduct', codeOfConduct);
   router.get('/academic-honesty', academicHonesty);
 
   app.use(noLangRouter);
@@ -47,18 +44,6 @@ module.exports = function(app) {
 
   function chat(req, res) {
     res.redirect('https://gitter.im/FreeCodeCamp/FreeCodeCamp');
-  }
-
-  function terms(req, res) {
-      res.render('resources/terms-of-service', {
-            title: 'Terms of Service'
-      });
-  }
-
-  function privacy(req, res) {
-      res.render('resources/privacy', {
-          title: 'Privacy policy'
-      });
   }
 
   function howNonprofitProjectsWork(req, res) {
@@ -71,12 +56,6 @@ module.exports = function(app) {
     res.render('resources/software-resources-for-nonprofits', {
       title: 'Software Resources for Nonprofits'
     });
-  }
-
-  function codeOfConduct(req, res) {
-      res.render('resources/code-of-conduct', {
-          title: 'Code of Conduct'
-      });
   }
 
   function academicHonesty(req, res) {
@@ -93,7 +72,7 @@ module.exports = function(app) {
 
   function showTestimonials(req, res) {
     res.render('resources/stories', {
-      title: 'Testimonials from Happy Free Code Camp Students ' +
+      title: 'Testimonials from Happy freeCodeCamp Students ' +
         'who got Software Engineer Jobs',
       stories: testimonials.slice(0, 72),
       moreStories: true
@@ -102,7 +81,7 @@ module.exports = function(app) {
 
   function showAllTestimonials(req, res) {
     res.render('resources/stories', {
-      title: 'Testimonials from Happy Free Code Camp Students ' +
+      title: 'Testimonials from Happy freeCodeCamp Students ' +
         'who got Software Engineer Jobs',
       stories: testimonials,
       moreStories: false
@@ -111,7 +90,7 @@ module.exports = function(app) {
 
   function showShop(req, res) {
     res.render('resources/shop', {
-      title: 'Support Free Code Camp by Buying t-shirts, ' +
+      title: 'Support freeCodeCamp by Buying t-shirts, ' +
         'stickers, and other goodies'
     });
   }
@@ -171,26 +150,26 @@ module.exports = function(app) {
 
   function unsubscribeAll(req, res, next) {
     req.checkParams('email', 'Must send a valid email').isEmail();
-    return User.findOne({ where: { email: req.params.email } }, (err, user) => {
+    var query = { email: req.params.email };
+    var params = {
+      sendQuincyEmail: false,
+      sendMonthlyEmail: false,
+      sendNotificationEmail: false
+    };
+    return User.updateAll(query, params, function(err, info) {
       if (err) { return next(err); }
-      if (!user) {
+      if (info.count === 0) {
         req.flash('info', {
           msg: 'Email address not found. ' +
           'Please update your Email preferences from your profile.'
         });
         return res.redirect('/map');
-      }
-      return user.updateAttributes({
-        sendQuincyEmail: false,
-        sendMonthlyEmail: false,
-        sendNotificationEmail: false
-      }, (err) => {
-        if (err) { return next(err); }
+      } else {
         req.flash('info', {
           msg: 'We\'ve successfully updated your Email preferences.'
         });
         return res.redirect('/unsubscribed');
-      });
+      }
     });
   }
 

@@ -1,5 +1,5 @@
 meta(name='viewport', content='width=device-width, initial-scale=1')
-link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
+link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css')
 include styles
 
 .certificate-wrapper.container
@@ -7,7 +7,7 @@ include styles
 	header
 	  .col-md-5.col-sm-12
 		.logo
-		  img(class='img-responsive', src='https://s3.amazonaws.com/freecodecamp/freecodecamp_logo.svg', alt="Free Code Camp's Logo")
+		  img(class='img-responsive', src='https://s3.amazonaws.com/freecodecamp/freecodecamp_logo.svg', alt="freeCodeCamp's Logo")
 	  .col-md-7.col-sm-12
 		.issue-date Issued 
 		  strong #{date}
@@ -20,7 +20,7 @@ include styles
 		h3 has successfully completed the
 		h1
 		  strong Full Stack Development Projects
-		h4 (400 hours of coursework & 1 of 3 Free Code Camp certificates)
+		h4 (400 hours of coursework & 1 of 3 freeCodeCamp certificates)
 		
 	footer
 	  .row.signatures
@@ -33,4 +33,4 @@ include styles
 			p
 			  strong Michael D. Johnson
 	  .row
-		p.verify Verify this certificate at: https://www.freecodecamp.com/#{username}/full-stack-certification
+		p.verify Verify this certificate at: https://www.freecodecamp.org/#{username}/full-stack-certification

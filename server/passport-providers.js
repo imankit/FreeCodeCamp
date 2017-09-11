@@ -1,7 +1,7 @@
-var successRedirect = '/';
-var failureRedirect = '/signin';
-var linkFailureRedirect = '/account';
-var githubProfileSuccessRedirect = '/settings';
+const successRedirect = '/';
+const failureRedirect = '/signin';
+const linkSuccessRedirect = '/settings';
+const linkFailureRedirect = '/settings';
 
 export default {
   local: {
@@ -36,7 +36,7 @@ export default {
     authPath: '/link/facebook',
     callbackURL: '/link/facebook/callback',
     callbackPath: '/link/facebook/callback',
-    successRedirect: successRedirect,
+    successRedirect: linkSuccessRedirect,
     failureRedirect: linkFailureRedirect,
     scope: ['email', 'user_likes'],
     link: true,
@@ -65,7 +65,7 @@ export default {
     authPath: '/link/google',
     callbackURL: '/link/google/callback',
     callbackPath: '/link/google/callback',
-    successRedirect: successRedirect,
+    successRedirect: linkSuccessRedirect,
     failureRedirect: linkFailureRedirect,
     scope: ['email', 'profile'],
     link: true,
@@ -91,7 +91,7 @@ export default {
     authPath: '/link/twitter',
     callbackURL: '/link/twitter/callback',
     callbackPath: '/link/twitter/callback',
-    successRedirect: successRedirect,
+    successRedirect: linkSuccessRedirect,
     failureRedirect: linkFailureRedirect,
     consumerKey: process.env.TWITTER_KEY,
     consumerSecret: process.env.TWITTER_SECRET,
@@ -122,7 +122,7 @@ export default {
     authPath: '/link/linkedin',
     callbackURL: '/link/linkedin/callback',
     callbackPath: '/link/linkedin/callback',
-    successRedirect: successRedirect,
+    successRedirect: linkSuccessRedirect,
     failureRedirect: linkFailureRedirect,
     clientID: process.env.LINKEDIN_ID,
     clientSecret: process.env.LINKEDIN_SECRET,
@@ -144,7 +144,6 @@ export default {
     failureRedirect: failureRedirect,
     clientID: process.env.GITHUB_ID,
     clientSecret: process.env.GITHUB_SECRET,
-    scope: ['email'],
     failureFlash: true
   },
   'github-link': {
@@ -154,11 +153,10 @@ export default {
     authPath: '/link/github',
     callbackURL: '/auth/github/callback/link',
     callbackPath: '/auth/github/callback/link',
-    successRedirect: githubProfileSuccessRedirect,
+    successRedirect: linkSuccessRedirect,
     failureRedirect: linkFailureRedirect,
     clientID: process.env.GITHUB_ID,
     clientSecret: process.env.GITHUB_SECRET,
-    scope: ['email'],
     link: true,
     failureFlash: true,
     successFlash: [ 'We\'ve updated your profile based ',
